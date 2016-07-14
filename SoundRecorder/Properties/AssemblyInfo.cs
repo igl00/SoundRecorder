@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Sound Recorder")]
 [assembly: AssemblyDescription("A basic sound recorder built to capture speech.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Fake Company ®  2016")]
+[assembly: AssemblyCompany("SoundRecorder")]
 [assembly: AssemblyProduct("SoundRecorder")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

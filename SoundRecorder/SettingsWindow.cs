@@ -1,47 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CSCore.CoreAudioAPI;
-using CSCore.Win32;
-using CSCore.Codecs.WAV;
-using CSCore.Streams;
 
 namespace SoundRecorder
 {
     public partial class SettingsWindow : Form
     {
         private string _writeDir;
+        private Codec _writeCodec;
+        private string _inputDevice;
+
         private MMDeviceCollection _inputRenderDevices;
         private MMDeviceCollection _inputCaptureDevices;
-        private string _inputDevice;
+
 
         public SettingsWindow()
         {
             InitializeComponent();
 
-            // Add the input devices to the input devices combo box
+            // Load the input devices before the settings as loading them will update the index chane in the combo box.
             RefreshDevices();
 
+            // Load the available codecs into the combo box
+            this.recordingFormatComboBox.DataSource = Enum.GetValues(typeof(Codec));
+
+            // Load the saved settings. Stored in C:\Users\<USER>\AppData\Local\<COMPANY NAME>\
+            LoadSettings();
+
+            // Add the input devices to the input devices combo box
+            SelectCurrentInputDevice();
+        }
+
+        public void LoadSettings()
+        {
+            // Fetch the saved settings
             this._writeDir = Properties.Settings.Default.writeDir;
             this._inputDevice = Properties.Settings.Default.inputDevice;
+            this._writeCodec = (Codec) Properties.Settings.Default.writeCodec;
 
-            // Set fields to current saved values.
+            // Set the write directory to the saved value
+            this.saveDirectoryTextBox.Text = this._writeDir;
 
-            // Write Directory
-            saveDirectoryTextBox.Text = _writeDir;
+            //Load the user selected codec in
+            this.recordingFormatComboBox.SelectedItem = this._writeCodec;
+        }
 
-            // Input device
-            RefreshDevices();
-            SelectCurrentInputDevice();
+        public void SaveSettings()
+        {
+            // Save all fields to the settings
+            Properties.Settings.Default.writeDir = this._writeDir;
+            Properties.Settings.Default.inputDevice = this._inputDevice;
+            Properties.Settings.Default.writeCodec = (int) this._writeCodec; 
 
+            Properties.Settings.Default.Save();
         }
 
         private void ChooseFolder()
@@ -60,22 +73,15 @@ namespace SoundRecorder
             this.Close();
         }
 
-        private void saveFolderBrowserDialog_HelpRequest(object sender, EventArgs e)
-        {
-            
-        }
-
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            // Save all fields to the settings
-            Properties.Settings.Default.writeDir = _writeDir;
-            Properties.Settings.Default.inputDevice = _inputDevice;
+            SaveSettings();
 
-            // Update the current capture device in the main window
+            // Load the updated settings into the main window.
             var parentForm = (MainWindow)this.Owner;
             if (parentForm != null)
             {
-                parentForm.SetCaptureDevice();
+                parentForm.LoadSettings();
             }
 
             this.Close();
@@ -108,13 +114,11 @@ namespace SoundRecorder
 
                 foreach (var device in inputRenderDevices)
                 {
-                    Console.WriteLine(device);
                     deviceDictonary.Add(device.DeviceID, device.FriendlyName);
                 }
 
                 foreach (var device in inputCaptureDevices)
                 {
-                    Console.WriteLine(device);
                     deviceDictonary.Add(device.DeviceID, device.FriendlyName);
                 }
 
@@ -142,12 +146,16 @@ namespace SoundRecorder
                     break;
                 }
             }
-            this.inputDeviceComboBox.SelectedItem = this._inputDevice;
         }
 
         private void deviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this._inputDevice = ((KeyValuePair<string, string>)this.inputDeviceComboBox.SelectedItem).Key;
+        }
+
+        private void recordingFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse<Codec>(this.recordingFormatComboBox.SelectedValue.ToString(), out this._writeCodec);
         }
     }
 }

@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CSCore;  // WaveFormat, WaveFormatExtensible
 using CSCore.CoreAudioAPI;  // MMDeviceEnumerator, DataFlow
-using CSCore.Win32;  // PropertyKey
-using System.Runtime.InteropServices;  // Marshal
-
-using CSCore.Codecs;
 using CSCore.Codecs.WAV;
 using CSCore.MediaFoundation;
 using CSCore.SoundIn;  //WasapiCapture, WasapiLoopbackCapture
@@ -23,18 +14,22 @@ using CSCore.Streams;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
+
 namespace SoundRecorder
 {
     public partial class MainWindow : Form
     {
-        //Change this to CaptureMode.Capture to capture a microphone,...
         private int CaptureMode = (int)CaptureModeOptions.LoopbackCapture;
 
+        private string _captureDeviceGUID;
+        private Codec _writeCodec;
+        private string _writeDir;
+        
         private MMDevice _selectedDevice;
         private WasapiCapture _soundIn;
         private IWriteable _writer;
         private IWaveSource _finalSource;
-        private string _writeDir;
+        private readonly LevelsVisualization _levelsVisualization = new LevelsVisualization();
 
         public MMDevice SelectedDevice
         {
@@ -51,8 +46,54 @@ namespace SoundRecorder
         {
             InitializeComponent();
 
+            // Load in the user settings.
+            LoadSettings();
+
+            // Restore the dimensions of the window from the last session.
+            RestoreWindow();
+
+            // Make sure the write directory is set to something and the folder exists.
+            CheckWriteDirectory();
+
+            // Set the selected recording device from the settings file.
+            SetCaptureDevice();
+
+            // Disable record button if no recording device is initialized.
+            if (SelectedDevice == null)
+            {
+                recordButton.Enabled = false;
+            }
+
+            // Show the recent files in the output directory
+            DisplayRecentFiles();
+        }
+
+        public void LoadSettings()
+        {
+            // Load user settings
+            this._captureDeviceGUID = Properties.Settings.Default.inputDevice;
+            this._writeDir = Properties.Settings.Default.writeDir;
+            this._writeCodec = (Codec) Properties.Settings.Default.writeCodec;
+        }
+
+        public void RestoreWindow()
+        {
+            // Restore window settings
+            var width = Properties.Settings.Default.mainWindow_width;
+            var height = Properties.Settings.Default.mainWindow_height;
+
+            if (width > 0 && height > 0)
+            {
+                this.Width = width;
+                this.Height = height;
+            }
+
+            this.WindowState = (FormWindowState)Properties.Settings.Default.mainWindow_state;
+        }
+
+        public void CheckWriteDirectory()
+        {
             // Set the write directory
-            _writeDir = Properties.Settings.Default.writeDir;
             if (_writeDir == "")
             {
                 _writeDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Recordings");
@@ -71,42 +112,34 @@ namespace SoundRecorder
                     // TODO: Need to understand the correct procedure here.
                 }
             }
+        }
 
-            // Set the selected recording device from the settings file.
-            SetCaptureDevice();
+        public void SaveSettings()
+        {
+            Properties.Settings.Default.mainWindow_width = this.Width;
+            Properties.Settings.Default.mainWindow_height = this.Height;
+            Properties.Settings.Default.mainWindow_state = (int) this.WindowState;
 
-            // Check whether or not a recording device is selected.
-            // If none is selected grey out the record button.
-            if (SelectedDevice == null)
-            {
-                recordButton.Enabled = false;
-            }
-
-            // Show the recent files in the output directory
-            DisplayRecentFiles();
+            Properties.Settings.Default.Save();
         }
 
         public void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Make sure the capture has stopped when the window is closed
             StopCapture();
+            SaveSettings();
         }
 
         public void SetCaptureDevice()
         {
-            var captureDeviceId = Properties.Settings.Default.inputDevice;
-
             using (var deviceRenderEnumerator = new MMDeviceEnumerator())
-            using (
-                var inputRenderDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
-            using (
-                var inputCaptureDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active)
-                )
+            using (var inputRenderDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
+            using (var inputCaptureDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
             {
 
                 foreach (var device in inputRenderDevices)
                 {
-                    if (device.DeviceID == captureDeviceId)
+                    if (device.DeviceID == this._captureDeviceGUID)
                     {
                         this.SelectedDevice = device;
                         this.CaptureMode = (int)CaptureModeOptions.LoopbackCapture;
@@ -115,7 +148,7 @@ namespace SoundRecorder
 
                 foreach (var device in inputCaptureDevices)
                 {
-                    if (device.DeviceID == captureDeviceId)
+                    if (device.DeviceID == this._captureDeviceGUID)
                     {
                         this.SelectedDevice = device;
                         this.CaptureMode = (int)CaptureModeOptions.Capture;
@@ -131,8 +164,18 @@ namespace SoundRecorder
 
         private void StartCapture(string fileName)
         {
-            if (SelectedDevice == null)
+            // Check to make sure the recording device is selected and recording isn't already in progress
+            if (SelectedDevice == null || (_soundIn != null && _soundIn.RecordingState == RecordingState.Recording))
+            {
                 return;
+            }
+            else if (_soundIn != null && _soundIn.RecordingState == RecordingState.Stopped)
+            {
+                _soundIn.Start();
+                this.recordButton.Enabled = false;
+                return;
+            }
+
 
             if (CaptureMode == (int)CaptureModeOptions.Capture)
                 _soundIn = new WasapiCapture();
@@ -145,7 +188,33 @@ namespace SoundRecorder
             var soundInSource = new SoundInSource(_soundIn);
             var singleBlockNotificationStream = new SingleBlockNotificationStream(soundInSource.ToSampleSource());
             _finalSource = singleBlockNotificationStream.ToWaveSource();
-            _writer = new WaveWriter(fileName, _finalSource.WaveFormat);
+
+
+            var bitRate = 192000;
+
+            // MP3 Write
+            if (_writeCodec == Codec.MP3)
+            {
+                _writer = MediaFoundationEncoder.CreateMP3Encoder(soundInSource.ToStereo().WaveFormat, fileName, bitRate);
+            }
+
+            // AAC Write
+            if (_writeCodec == Codec.AAC)
+            {
+                _writer = MediaFoundationEncoder.CreateAACEncoder(soundInSource.ToStereo().WaveFormat, fileName, bitRate);
+            }
+
+            // WMA Write
+            if (_writeCodec == Codec.WMA)
+            {
+                _writer = MediaFoundationEncoder.CreateWMAEncoder(soundInSource.ToStereo().WaveFormat, fileName, bitRate);
+            }
+
+            // Wave Writer
+            if (_writeCodec == Codec.WAV)
+            {
+                _writer = new WaveWriter(fileName, _finalSource.WaveFormat);
+            }
 
             byte[] buffer = new byte[_finalSource.WaveFormat.BytesPerSecond / 2];
 
@@ -155,7 +224,7 @@ namespace SoundRecorder
                 while ((read = _finalSource.Read(buffer, 0, buffer.Length)) > 0)
                     _writer.Write(buffer, 0, read);
             };
-
+            
             singleBlockNotificationStream.SingleBlockRead += SingleBlockNotificationStreamOnSingleBlockRead;
 
             this.recordButton.Enabled = false;
@@ -181,12 +250,27 @@ namespace SoundRecorder
 
         private void SingleBlockNotificationStreamOnSingleBlockRead(object sender, SingleBlockReadEventArgs e)
         {
-            //_graphVisualization.AddSamples(e.Left, e.Right);
+            _levelsVisualization.AddSamples(e.Left, e.Right);
         }
 
         private void recordButton_Click(object sender, EventArgs e)
         {
-            StartCapture(Path.Combine(this._writeDir, DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".wav"));
+            var extension = _writeCodec.ToString().ToLower();
+            var timeStamp = DateTime.Now.ToString("yyyy-MM-d dddd h꞉mm꞉ss tt");
+            var fileName = String.Format("{0}.{1}", timeStamp, extension);
+
+            StartCapture(Path.Combine(this._writeDir, fileName));
+        }
+
+        public string GetDateSuffix(int day)
+        {
+            switch (day)
+            {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
         }
 
         private void stopButton_Click(object sender, EventArgs e)
@@ -197,7 +281,21 @@ namespace SoundRecorder
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
-
+            // kj is amazing.
+            if (_soundIn != null)
+            {
+                if (_soundIn.RecordingState == RecordingState.Recording)
+                {
+                    _soundIn.Stop();
+                    this.recordButton.Enabled = true;
+                }
+                else
+                {
+                    _soundIn.Start();
+                    this.recordButton.Enabled = false;
+                }
+            }
+            
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -260,6 +358,25 @@ namespace SoundRecorder
         {
             Capture,
             LoopbackCapture
+        }
+
+        private void visualUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            // TODO: how intesive is this?
+            // Get the current image
+            var image = visualizationPictureBox.Image;
+            // Write a new image to the picture box
+            visualizationPictureBox.Image = _levelsVisualization.Draw(visualizationPictureBox.Width, visualizationPictureBox.Height);
+            // If there was an old image dispos of it
+            if (image != null)
+                image.Dispose();
+        }
+
+        private void resetWindowSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.Width = Properties.Settings.Default.mainWindow_defaultWidth;
+            this.Height = Properties.Settings.Default.mainWindow_defaultHeight;
         }
     }
 }

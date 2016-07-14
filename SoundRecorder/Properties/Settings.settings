@@ -8,5 +8,23 @@
     <Setting Name="writeDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="mainWindow_width" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="mainWindow_height" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="mainWindow_state" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="writeCodec" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="mainWindow_defaultWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">560</Value>
+    </Setting>
+    <Setting Name="mainWindow_defaultHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">555</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

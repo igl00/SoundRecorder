@@ -59,10 +59,6 @@ namespace SoundRecorder
             this.recordingFormatTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // saveFolderBrowserDialog
-            // 
-            this.saveFolderBrowserDialog.HelpRequest += new System.EventHandler(this.saveFolderBrowserDialog_HelpRequest);
-            // 
             // settingsWindowTableLayout
             // 
             this.settingsWindowTableLayout.ColumnCount = 1;
@@ -248,6 +244,7 @@ namespace SoundRecorder
             // 
             // recordingFormatSettingsButton
             // 
+            this.recordingFormatSettingsButton.Enabled = false;
             this.recordingFormatSettingsButton.Location = new System.Drawing.Point(369, 3);
             this.recordingFormatSettingsButton.Name = "recordingFormatSettingsButton";
             this.recordingFormatSettingsButton.Size = new System.Drawing.Size(74, 23);
@@ -263,6 +260,7 @@ namespace SoundRecorder
             this.recordingFormatComboBox.Name = "recordingFormatComboBox";
             this.recordingFormatComboBox.Size = new System.Drawing.Size(360, 21);
             this.recordingFormatComboBox.TabIndex = 1;
+            this.recordingFormatComboBox.SelectedIndexChanged += new System.EventHandler(this.recordingFormatComboBox_SelectedIndexChanged);
             // 
             // SettingsWindow
             // 

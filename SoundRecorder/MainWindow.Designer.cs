@@ -30,10 +30,12 @@ namespace SoundRecorder
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetWindowSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,20 +46,17 @@ namespace SoundRecorder
             this.columnDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.recordingTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.waveformTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.leftChannelPictureBox = new System.Windows.Forms.PictureBox();
-            this.rightChannelPictureBox = new System.Windows.Forms.PictureBox();
             this.buttonPanel = new System.Windows.Forms.Panel();
             this.pauseButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.recordButton = new System.Windows.Forms.Button();
+            this.visualizationPictureBox = new System.Windows.Forms.PictureBox();
+            this.visualUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.menuMain.SuspendLayout();
             this.baseTableLayoutPanel.SuspendLayout();
             this.recordingTableLayoutPanel.SuspendLayout();
-            this.waveformTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.leftChannelPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightChannelPictureBox)).BeginInit();
             this.buttonPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.visualizationPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuMain
@@ -67,7 +66,7 @@ namespace SoundRecorder
             this.helpToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(540, 24);
+            this.menuMain.Size = new System.Drawing.Size(544, 24);
             this.menuMain.TabIndex = 0;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -75,6 +74,7 @@ namespace SoundRecorder
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
+            this.resetWindowSizeToolStripMenuItem,
             this.fileToolStripSeparator,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -84,19 +84,26 @@ namespace SoundRecorder
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // resetWindowSizeToolStripMenuItem
+            // 
+            this.resetWindowSizeToolStripMenuItem.Name = "resetWindowSizeToolStripMenuItem";
+            this.resetWindowSizeToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.resetWindowSizeToolStripMenuItem.Text = "Reset Window Size";
+            this.resetWindowSizeToolStripMenuItem.Click += new System.EventHandler(this.resetWindowSizeToolStripMenuItem_Click);
             // 
             // fileToolStripSeparator
             // 
             this.fileToolStripSeparator.Name = "fileToolStripSeparator";
-            this.fileToolStripSeparator.Size = new System.Drawing.Size(113, 6);
+            this.fileToolStripSeparator.Size = new System.Drawing.Size(169, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -127,7 +134,7 @@ namespace SoundRecorder
             this.baseTableLayoutPanel.RowCount = 2;
             this.baseTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.baseTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.baseTableLayoutPanel.Size = new System.Drawing.Size(540, 492);
+            this.baseTableLayoutPanel.Size = new System.Drawing.Size(544, 492);
             this.baseTableLayoutPanel.TabIndex = 1;
             // 
             // listPreviousRecordings
@@ -139,7 +146,7 @@ namespace SoundRecorder
             this.listPreviousRecordings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPreviousRecordings.Location = new System.Drawing.Point(3, 249);
             this.listPreviousRecordings.Name = "listPreviousRecordings";
-            this.listPreviousRecordings.Size = new System.Drawing.Size(534, 240);
+            this.listPreviousRecordings.Size = new System.Drawing.Size(538, 240);
             this.listPreviousRecordings.TabIndex = 0;
             this.listPreviousRecordings.UseCompatibleStateImageBehavior = false;
             this.listPreviousRecordings.View = System.Windows.Forms.View.Details;
@@ -164,8 +171,8 @@ namespace SoundRecorder
             // 
             this.recordingTableLayoutPanel.ColumnCount = 1;
             this.recordingTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.39286F));
-            this.recordingTableLayoutPanel.Controls.Add(this.waveformTableLayoutPanel, 0, 0);
             this.recordingTableLayoutPanel.Controls.Add(this.buttonPanel, 0, 1);
+            this.recordingTableLayoutPanel.Controls.Add(this.visualizationPictureBox, 0, 0);
             this.recordingTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.recordingTableLayoutPanel.Location = new System.Drawing.Point(0, 3);
             this.recordingTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
@@ -173,44 +180,8 @@ namespace SoundRecorder
             this.recordingTableLayoutPanel.RowCount = 2;
             this.recordingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.recordingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.recordingTableLayoutPanel.Size = new System.Drawing.Size(540, 240);
+            this.recordingTableLayoutPanel.Size = new System.Drawing.Size(544, 240);
             this.recordingTableLayoutPanel.TabIndex = 1;
-            // 
-            // waveformTableLayoutPanel
-            // 
-            this.waveformTableLayoutPanel.ColumnCount = 1;
-            this.waveformTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.waveformTableLayoutPanel.Controls.Add(this.leftChannelPictureBox, 0, 0);
-            this.waveformTableLayoutPanel.Controls.Add(this.rightChannelPictureBox, 0, 1);
-            this.waveformTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.waveformTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.waveformTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.waveformTableLayoutPanel.Name = "waveformTableLayoutPanel";
-            this.waveformTableLayoutPanel.RowCount = 2;
-            this.waveformTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.waveformTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.waveformTableLayoutPanel.Size = new System.Drawing.Size(540, 191);
-            this.waveformTableLayoutPanel.TabIndex = 0;
-            // 
-            // leftChannelPictureBox
-            // 
-            this.leftChannelPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leftChannelPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.leftChannelPictureBox.Margin = new System.Windows.Forms.Padding(0);
-            this.leftChannelPictureBox.Name = "leftChannelPictureBox";
-            this.leftChannelPictureBox.Size = new System.Drawing.Size(540, 95);
-            this.leftChannelPictureBox.TabIndex = 0;
-            this.leftChannelPictureBox.TabStop = false;
-            // 
-            // rightChannelPictureBox
-            // 
-            this.rightChannelPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rightChannelPictureBox.Location = new System.Drawing.Point(0, 95);
-            this.rightChannelPictureBox.Margin = new System.Windows.Forms.Padding(0);
-            this.rightChannelPictureBox.Name = "rightChannelPictureBox";
-            this.rightChannelPictureBox.Size = new System.Drawing.Size(540, 96);
-            this.rightChannelPictureBox.TabIndex = 1;
-            this.rightChannelPictureBox.TabStop = false;
             // 
             // buttonPanel
             // 
@@ -255,16 +226,34 @@ namespace SoundRecorder
             this.recordButton.UseVisualStyleBackColor = true;
             this.recordButton.Click += new System.EventHandler(this.recordButton_Click);
             // 
+            // visualizationPictureBox
+            // 
+            this.visualizationPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.visualizationPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.visualizationPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.visualizationPictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.visualizationPictureBox.Name = "visualizationPictureBox";
+            this.visualizationPictureBox.Size = new System.Drawing.Size(544, 191);
+            this.visualizationPictureBox.TabIndex = 2;
+            this.visualizationPictureBox.TabStop = false;
+            // 
+            // visualUpdateTimer
+            // 
+            this.visualUpdateTimer.Enabled = true;
+            this.visualUpdateTimer.Interval = 40;
+            this.visualUpdateTimer.Tick += new System.EventHandler(this.visualUpdateTimer_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(540, 516);
+            this.ClientSize = new System.Drawing.Size(544, 516);
             this.Controls.Add(this.baseTableLayoutPanel);
             this.Controls.Add(this.menuMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Properties.Resources.SoundRecorderIcon;
             this.MainMenuStrip = this.menuMain;
+            this.MinimumSize = new System.Drawing.Size(380, 380);
             this.Name = "MainWindow";
             this.Text = "Sound Recorder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
@@ -272,10 +261,8 @@ namespace SoundRecorder
             this.menuMain.PerformLayout();
             this.baseTableLayoutPanel.ResumeLayout(false);
             this.recordingTableLayoutPanel.ResumeLayout(false);
-            this.waveformTableLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.leftChannelPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightChannelPictureBox)).EndInit();
             this.buttonPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.visualizationPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,13 +283,13 @@ namespace SoundRecorder
         private System.Windows.Forms.ColumnHeader columnDuration;
         private System.Windows.Forms.ColumnHeader columnCreated;
         private System.Windows.Forms.TableLayoutPanel recordingTableLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel waveformTableLayoutPanel;
-        private System.Windows.Forms.PictureBox leftChannelPictureBox;
-        private System.Windows.Forms.PictureBox rightChannelPictureBox;
         private System.Windows.Forms.Panel buttonPanel;
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button recordButton;
+        private PictureBox visualizationPictureBox;
+        private Timer visualUpdateTimer;
+        private ToolStripMenuItem resetWindowSizeToolStripMenuItem;
     }
 }
 

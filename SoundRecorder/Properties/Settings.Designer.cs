@@ -46,5 +46,77 @@ namespace SoundRecorder.Properties {
                 this["writeDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int mainWindow_width {
+            get {
+                return ((int)(this["mainWindow_width"]));
+            }
+            set {
+                this["mainWindow_width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int mainWindow_height {
+            get {
+                return ((int)(this["mainWindow_height"]));
+            }
+            set {
+                this["mainWindow_height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int mainWindow_state {
+            get {
+                return ((int)(this["mainWindow_state"]));
+            }
+            set {
+                this["mainWindow_state"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int writeCodec {
+            get {
+                return ((int)(this["writeCodec"]));
+            }
+            set {
+                this["writeCodec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("560")]
+        public int mainWindow_defaultWidth {
+            get {
+                return ((int)(this["mainWindow_defaultWidth"]));
+            }
+            set {
+                this["mainWindow_defaultWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("555")]
+        public int mainWindow_defaultHeight {
+            get {
+                return ((int)(this["mainWindow_defaultHeight"]));
+            }
+            set {
+                this["mainWindow_defaultHeight"] = value;
+            }
+        }
     }
 }
