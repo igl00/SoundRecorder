@@ -251,7 +251,7 @@ namespace SoundRecorder
             this.ClientSize = new System.Drawing.Size(544, 516);
             this.Controls.Add(this.baseTableLayoutPanel);
             this.Controls.Add(this.menuMain);
-            this.Icon = Properties.Resources.SoundRecorderIcon;
+            this.Icon = Properties.Resources.icon;
             this.MainMenuStrip = this.menuMain;
             this.MinimumSize = new System.Drawing.Size(380, 380);
             this.Name = "MainWindow";

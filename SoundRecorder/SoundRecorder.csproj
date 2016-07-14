@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SoundRecorderIcon.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.1.5992.18249, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
@@ -150,13 +150,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SoundRecorder.ico" />
-    <None Include="Resources\SoundRecorderIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_256.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon.ico" />
+    <Content Include="icon.ico" />
     <Content Include="SoundRecorderIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

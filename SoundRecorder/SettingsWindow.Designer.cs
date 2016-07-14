@@ -30,6 +30,7 @@ namespace SoundRecorder
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.saveFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.settingsWindowTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.acceptCancelFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
@@ -268,9 +269,11 @@ namespace SoundRecorder
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 311);
             this.Controls.Add(this.settingsWindowTableLayout);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(480, 350);
             this.Name = "SettingsWindow";
-            this.Text = "SettingsWindow";
+            this.ShowIcon = false;
+            this.Text = "Settings";
             this.settingsWindowTableLayout.ResumeLayout(false);
             this.acceptCancelFlowLayout.ResumeLayout(false);
             this.settingsTableLayout.ResumeLayout(false);

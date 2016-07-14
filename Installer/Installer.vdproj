@@ -15,19 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_08CBBD4EA14807AAE379282BF1D383DE"
-        "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
+        "MsmKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
+        "OwnerKey" = "8:_D8906FC4648656AA2DC2854B89530727"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3178DA25A4CD45239055A8585B5C5B10"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3D4713A8A655430D362F27F41A91788E"
+        "MsmKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -45,44 +39,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A9AF160BD05EBCE1BB5F452EDF3F608C"
+        "MsmKey" = "8:_D8906FC4648656AA2DC2854B89530727"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A9AF160BD05EBCE1BB5F452EDF3F608C"
-        "OwnerKey" = "8:_08CBBD4EA14807AAE379282BF1D383DE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A9AF160BD05EBCE1BB5F452EDF3F608C"
-        "OwnerKey" = "8:_F1F5ABC7E4AB3AC302DE76EF863236AE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A9AF160BD05EBCE1BB5F452EDF3F608C"
-        "OwnerKey" = "8:_B69C0DF1D2EAE41D033E6B5867D54DB9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B69C0DF1D2EAE41D033E6B5867D54DB9"
-        "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F1F5ABC7E4AB3AC302DE76EF863236AE"
-        "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F1F5ABC7E4AB3AC302DE76EF863236AE"
-        "OwnerKey" = "8:_08CBBD4EA14807AAE379282BF1D383DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -93,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FC7D4ED15A70477783FB5A1E4AACE2FB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,31 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_08CBBD4EA14807AAE379282BF1D383DE"
+        "OwnerKey" = "8:_D8906FC4648656AA2DC2854B89530727"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F1F5ABC7E4AB3AC302DE76EF863236AE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B69C0DF1D2EAE41D033E6B5867D54DB9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3D4713A8A655430D362F27F41A91788E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A9AF160BD05EBCE1BB5F452EDF3F608C"
+        "OwnerKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -157,6 +103,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -173,6 +127,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -202,71 +172,20 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_08CBBD4EA14807AAE379282BF1D383DE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0281C0C8D212BDD587BDD2ED3AE14CA5"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_08CBBD4EA14807AAE379282BF1D383DE"
+                    "_0281C0C8D212BDD587BDD2ED3AE14CA5"
                     {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.ShellExtensions.dll"
+                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.ShellExtensions.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3178DA25A4CD45239055A8585B5C5B10"
-            {
-            "SourcePath" = "8:..\\Static\\SoundRecorderIcon.ico"
-            "TargetName" = "8:SoundRecorderIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3D4713A8A655430D362F27F41A91788E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.ExtendedLinguisticServices, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_3D4713A8A655430D362F27F41A91788E"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll"
+            "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
@@ -315,76 +234,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A9AF160BD05EBCE1BB5F452EDF3F608C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A9AF160BD05EBCE1BB5F452EDF3F608C"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B69C0DF1D2EAE41D033E6B5867D54DB9"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Sensors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_B69C0DF1D2EAE41D033E6B5867D54DB9"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.Sensors.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.Sensors.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F1F5ABC7E4AB3AC302DE76EF863236AE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D8906FC4648656AA2DC2854B89530727"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F1F5ABC7E4AB3AC302DE76EF863236AE"
+                    "_D8906FC4648656AA2DC2854B89530727"
                     {
                     "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
                     "Attributes" = "3:512"
@@ -439,6 +296,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC7D4ED15A70477783FB5A1E4AACE2FB"
+            {
+            "SourcePath" = "8:..\\SoundRecorder\\Resources\\icon.ico"
+            "TargetName" = "8:icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -458,7 +335,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_314AE955285D4F94B826A86BD6172A83"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -496,7 +373,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Sound Recorder"
         "ProductCode" = "8:{A5533E70-444E-4581-AE58-B81A186AA7CD}"
-        "PackageCode" = "8:{01B7C444-E094-4153-9B8B-7CEE34966EC0}"
+        "PackageCode" = "8:{415A38B1-FD64-4DFA-9CE6-366C533E6710}"
         "UpgradeCode" = "8:{C699E500-25EF-40B8-8C69-B15010A8BAF0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -513,7 +390,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_3178DA25A4CD45239055A8585B5C5B10"
+        "ARPPRODUCTICON" = "8:_FC7D4ED15A70477783FB5A1E4AACE2FB"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -616,21 +493,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D69B21D68A2945768C9BC968B47FA42A"
-            {
-            "Name" = "8:Sound Recorder"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_96A8E374F5F74606B3C083FD4264CD70"
-            "Folder" = "8:_898CC3A0DCF04A5C82E10606E2AF2816"
-            "WorkingFolder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Icon" = "8:_3178DA25A4CD45239055A8585B5C5B10"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DDE2F09640EE4FB78D5BD7138C44934E"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_22247838C96A4F00A28868A7FBE5783B"
             {
             "Name" = "8:Sound Recorder"
             "Arguments" = "8:"
@@ -641,7 +504,21 @@
             "Target" = "8:_96A8E374F5F74606B3C083FD4264CD70"
             "Folder" = "8:_176120E631E24C48A5FA5A1250AF131A"
             "WorkingFolder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Icon" = "8:_3178DA25A4CD45239055A8585B5C5B10"
+            "Icon" = "8:_FC7D4ED15A70477783FB5A1E4AACE2FB"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_560463E457BF4AC1AA0D85A48B2698C3"
+            {
+            "Name" = "8:SoundRecorder"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_96A8E374F5F74606B3C083FD4264CD70"
+            "Folder" = "8:_898CC3A0DCF04A5C82E10606E2AF2816"
+            "WorkingFolder" = "8:_314AE955285D4F94B826A86BD6172A83"
+            "Icon" = "8:_FC7D4ED15A70477783FB5A1E4AACE2FB"
             "Feature" = "8:"
             }
         }
@@ -814,8 +691,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
