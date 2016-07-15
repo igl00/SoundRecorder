@@ -31,7 +31,6 @@ namespace SoundRecorder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,7 +149,8 @@ namespace SoundRecorder
             this.listPreviousRecordings.TabIndex = 0;
             this.listPreviousRecordings.UseCompatibleStateImageBehavior = false;
             this.listPreviousRecordings.View = System.Windows.Forms.View.Details;
-            this.listPreviousRecordings.SelectedIndexChanged += new System.EventHandler(this.listPreviousRecordings_SelectedIndexChanged);
+            this.listPreviousRecordings.ColumnClick += new ColumnClickEventHandler(this.listPreviousRecordings_ColumnClick);
+            this.listPreviousRecordings.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPreviousRecordings_MouseDoubleClick);
             // 
             // columnFileName
             // 
@@ -251,7 +251,7 @@ namespace SoundRecorder
             this.ClientSize = new System.Drawing.Size(544, 516);
             this.Controls.Add(this.baseTableLayoutPanel);
             this.Controls.Add(this.menuMain);
-            this.Icon = Properties.Resources.icon;
+            this.Icon = global::SoundRecorder.Properties.Resources.icon;
             this.MainMenuStrip = this.menuMain;
             this.MinimumSize = new System.Drawing.Size(380, 380);
             this.Name = "MainWindow";

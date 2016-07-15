@@ -82,6 +82,7 @@ namespace SoundRecorder
             if (parentForm != null)
             {
                 parentForm.LoadSettings();
+                parentForm.SetCaptureDevice();
             }
 
             this.Close();
