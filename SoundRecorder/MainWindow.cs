@@ -31,7 +31,8 @@ namespace SoundRecorder
         private WasapiCapture _soundIn;
         private IWriteable _writer;
         private IWaveSource _finalSource;
-        private readonly LevelsVisualization _levelsVisualization = new LevelsVisualization();
+        private readonly RecordingVisualization _levelsVisualization = new RecordingVisualization();
+        private PeakMeter _peakMeter;
 
         private int _sortColumn = -1;
 
@@ -62,10 +63,16 @@ namespace SoundRecorder
             // Set the selected recording device from the settings file.
             SetCaptureDevice();
 
+            // Set the initial button state
             // Disable record button if no recording device is initialized.
             if (SelectedDevice == null)
             {
                 recordButton.Enabled = false;
+            }
+            else
+            {
+                this.stopButton.Enabled = false;
+                this.pauseButton.Enabled = false;
             }
 
             // Show the recent files in the output directory
@@ -232,7 +239,10 @@ namespace SoundRecorder
             singleBlockNotificationStream.SingleBlockRead += SingleBlockNotificationStreamOnSingleBlockRead;
 
             this.recordButton.Enabled = false;
+            // Create a new peak meter for the source
+            this._peakMeter = new PeakMeter(soundInSource.ToSampleSource());
 
+            // Start recording
             _soundIn.Start();
         }
 
@@ -248,6 +258,9 @@ namespace SoundRecorder
                 if (_writer is IDisposable)
                     ((IDisposable)_writer).Dispose();
 
+                // Dispose of the peakmeter
+                this._peakMeter.Dispose();
+
                 recordButton.Enabled = true;
             }
         }
@@ -255,15 +268,6 @@ namespace SoundRecorder
         private void SingleBlockNotificationStreamOnSingleBlockRead(object sender, SingleBlockReadEventArgs e)
         {
             _levelsVisualization.AddSamples(e.Left, e.Right);
-        }
-
-        private void recordButton_Click(object sender, EventArgs e)
-        {
-            var extension = _writeCodec.ToString().ToLower();
-            var timeStamp = DateTime.Now.ToString("yyyy-MM-d dddd h꞉mm꞉ss tt");
-            var fileName = String.Format("{0}.{1}", timeStamp, extension);
-
-            StartCapture(Path.Combine(this._writeDir, fileName));
         }
 
         public string GetDateSuffix(int day)
@@ -277,10 +281,27 @@ namespace SoundRecorder
             }
         }
 
+        private void recordButton_Click(object sender, EventArgs e)
+        {
+            var extension = _writeCodec.ToString().ToLower();
+            var timeStamp = DateTime.Now.ToString("yyyy-MM-d dddd h꞉mm꞉ss tt");
+            var fileName = String.Format("{0}.{1}", timeStamp, extension);
+
+            StartCapture(Path.Combine(this._writeDir, fileName));
+
+            this.recordButton.Enabled = false;
+            this.stopButton.Enabled = true;
+            this.pauseButton.Enabled = true;
+        }
+
         private void stopButton_Click(object sender, EventArgs e)
         {
             StopCapture();
             DisplayRecentFiles();
+
+            this.recordButton.Enabled = true;
+            this.stopButton.Enabled = false;
+            this.pauseButton.Enabled = false;
         }
 
         private void pauseButton_Click(object sender, EventArgs e)

@@ -51,11 +51,21 @@ namespace SoundRecorder
             this.recordButton = new System.Windows.Forms.Button();
             this.visualizationPictureBox = new System.Windows.Forms.PictureBox();
             this.visualUpdateTimer = new System.Windows.Forms.Timer(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.playbackLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.filePlayButton = new System.Windows.Forms.Button();
+            this.filePauseButton = new System.Windows.Forms.Button();
+            this.fileStopButton = new System.Windows.Forms.Button();
+            this.fileRefreshButton = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.menuMain.SuspendLayout();
             this.baseTableLayoutPanel.SuspendLayout();
             this.recordingTableLayoutPanel.SuspendLayout();
             this.buttonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualizationPictureBox)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.playbackLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuMain
@@ -127,12 +137,14 @@ namespace SoundRecorder
             this.baseTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.baseTableLayoutPanel.Controls.Add(this.listPreviousRecordings, 0, 1);
             this.baseTableLayoutPanel.Controls.Add(this.recordingTableLayoutPanel, 0, 0);
+            this.baseTableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 2);
             this.baseTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseTableLayoutPanel.Location = new System.Drawing.Point(0, 24);
             this.baseTableLayoutPanel.Name = "baseTableLayoutPanel";
-            this.baseTableLayoutPanel.RowCount = 2;
+            this.baseTableLayoutPanel.RowCount = 3;
             this.baseTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.baseTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.baseTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.baseTableLayoutPanel.Size = new System.Drawing.Size(544, 492);
             this.baseTableLayoutPanel.TabIndex = 1;
             // 
@@ -143,13 +155,13 @@ namespace SoundRecorder
             this.columnDuration,
             this.columnCreated});
             this.listPreviousRecordings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listPreviousRecordings.Location = new System.Drawing.Point(3, 249);
+            this.listPreviousRecordings.Location = new System.Drawing.Point(3, 234);
             this.listPreviousRecordings.Name = "listPreviousRecordings";
-            this.listPreviousRecordings.Size = new System.Drawing.Size(538, 240);
+            this.listPreviousRecordings.Size = new System.Drawing.Size(538, 225);
             this.listPreviousRecordings.TabIndex = 0;
             this.listPreviousRecordings.UseCompatibleStateImageBehavior = false;
             this.listPreviousRecordings.View = System.Windows.Forms.View.Details;
-            this.listPreviousRecordings.ColumnClick += new ColumnClickEventHandler(this.listPreviousRecordings_ColumnClick);
+            this.listPreviousRecordings.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listPreviousRecordings_ColumnClick);
             this.listPreviousRecordings.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPreviousRecordings_MouseDoubleClick);
             // 
             // columnFileName
@@ -180,7 +192,7 @@ namespace SoundRecorder
             this.recordingTableLayoutPanel.RowCount = 2;
             this.recordingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.recordingTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.recordingTableLayoutPanel.Size = new System.Drawing.Size(544, 240);
+            this.recordingTableLayoutPanel.Size = new System.Drawing.Size(544, 225);
             this.recordingTableLayoutPanel.TabIndex = 1;
             // 
             // buttonPanel
@@ -188,7 +200,7 @@ namespace SoundRecorder
             this.buttonPanel.Controls.Add(this.pauseButton);
             this.buttonPanel.Controls.Add(this.stopButton);
             this.buttonPanel.Controls.Add(this.recordButton);
-            this.buttonPanel.Location = new System.Drawing.Point(3, 194);
+            this.buttonPanel.Location = new System.Drawing.Point(3, 179);
             this.buttonPanel.Name = "buttonPanel";
             this.buttonPanel.Size = new System.Drawing.Size(225, 43);
             this.buttonPanel.TabIndex = 1;
@@ -233,7 +245,7 @@ namespace SoundRecorder
             this.visualizationPictureBox.Location = new System.Drawing.Point(0, 0);
             this.visualizationPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.visualizationPictureBox.Name = "visualizationPictureBox";
-            this.visualizationPictureBox.Size = new System.Drawing.Size(544, 191);
+            this.visualizationPictureBox.Size = new System.Drawing.Size(544, 176);
             this.visualizationPictureBox.TabIndex = 2;
             this.visualizationPictureBox.TabStop = false;
             // 
@@ -242,6 +254,76 @@ namespace SoundRecorder
             this.visualUpdateTimer.Enabled = true;
             this.visualUpdateTimer.Interval = 40;
             this.visualUpdateTimer.Tick += new System.EventHandler(this.visualUpdateTimer_Tick);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.Controls.Add(this.playbackLayoutPanel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.fileRefreshButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.trackBar1, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 462);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(544, 30);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // playbackLayoutPanel
+            // 
+            this.playbackLayoutPanel.Controls.Add(this.filePlayButton);
+            this.playbackLayoutPanel.Controls.Add(this.filePauseButton);
+            this.playbackLayoutPanel.Controls.Add(this.fileStopButton);
+            this.playbackLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playbackLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.playbackLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.playbackLayoutPanel.Name = "playbackLayoutPanel";
+            this.playbackLayoutPanel.Size = new System.Drawing.Size(100, 30);
+            this.playbackLayoutPanel.TabIndex = 3;
+            // 
+            // filePlayButton
+            // 
+            this.filePlayButton.Location = new System.Drawing.Point(3, 3);
+            this.filePlayButton.Name = "filePlayButton";
+            this.filePlayButton.Size = new System.Drawing.Size(25, 23);
+            this.filePlayButton.TabIndex = 0;
+            this.filePlayButton.UseVisualStyleBackColor = true;
+            // 
+            // filePauseButton
+            // 
+            this.filePauseButton.Location = new System.Drawing.Point(34, 3);
+            this.filePauseButton.Name = "filePauseButton";
+            this.filePauseButton.Size = new System.Drawing.Size(25, 23);
+            this.filePauseButton.TabIndex = 1;
+            this.filePauseButton.UseVisualStyleBackColor = true;
+            // 
+            // fileStopButton
+            // 
+            this.fileStopButton.Location = new System.Drawing.Point(65, 3);
+            this.fileStopButton.Name = "fileStopButton";
+            this.fileStopButton.Size = new System.Drawing.Size(25, 23);
+            this.fileStopButton.TabIndex = 2;
+            this.fileStopButton.UseVisualStyleBackColor = true;
+            // 
+            // fileRefreshButton
+            // 
+            this.fileRefreshButton.Location = new System.Drawing.Point(514, 3);
+            this.fileRefreshButton.Name = "fileRefreshButton";
+            this.fileRefreshButton.Size = new System.Drawing.Size(25, 23);
+            this.fileRefreshButton.TabIndex = 4;
+            this.fileRefreshButton.UseVisualStyleBackColor = true;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar1.Location = new System.Drawing.Point(103, 3);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(405, 24);
+            this.trackBar1.TabIndex = 5;
             // 
             // MainWindow
             // 
@@ -263,6 +345,10 @@ namespace SoundRecorder
             this.recordingTableLayoutPanel.ResumeLayout(false);
             this.buttonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.visualizationPictureBox)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.playbackLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,6 +376,13 @@ namespace SoundRecorder
         private PictureBox visualizationPictureBox;
         private Timer visualUpdateTimer;
         private ToolStripMenuItem resetWindowSizeToolStripMenuItem;
+        private TableLayoutPanel tableLayoutPanel1;
+        private FlowLayoutPanel playbackLayoutPanel;
+        private Button filePlayButton;
+        private Button filePauseButton;
+        private Button fileStopButton;
+        private Button fileRefreshButton;
+        private TrackBar trackBar1;
     }
 }
 

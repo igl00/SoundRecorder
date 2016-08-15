@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SoundRecorder
 {
-    class LevelsVisualization
+    class RecordingVisualization
     {
         private readonly List<float> _left = new List<float>();
         private readonly List<float> _right = new List<float>();

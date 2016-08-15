@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordingVisualization.cs" />
     <Compile Include="SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +136,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\fontawesome-webfont.ttf" />
+    <None Include="Resources\fontawesome.ttf" />
     <None Include="Todo.md" />
   </ItemGroup>
   <ItemGroup>
