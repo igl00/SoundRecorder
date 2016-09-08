@@ -26,5 +26,8 @@
     <Setting Name="mainWindow_defaultHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">555</Value>
     </Setting>
+    <Setting Name="bitrate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">192000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

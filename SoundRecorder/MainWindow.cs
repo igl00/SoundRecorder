@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using CSCore;  // WaveFormat, WaveFormatExtensible
@@ -12,7 +15,6 @@ using CSCore.Codecs.WAV;
 using CSCore.MediaFoundation;
 using CSCore.SoundIn;  //WasapiCapture, WasapiLoopbackCapture
 using CSCore.Streams;
-
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
@@ -31,10 +33,17 @@ namespace SoundRecorder
         private WasapiCapture _soundIn;
         private IWriteable _writer;
         private IWaveSource _finalSource;
-        private readonly RecordingVisualization _levelsVisualization = new RecordingVisualization();
+        private RecordingVisualization _visualization;
+        private LevelsVisualization _levelsVisualization = new LevelsVisualization();
         private PeakMeter _peakMeter;
 
         private int _sortColumn = -1;
+
+        // Icon Font
+        private Font _iconFont;
+        
+        // Focused Item in Previous Recordings
+        private string _focusedPreviousRecording;
 
         public MMDevice SelectedDevice
         {
@@ -65,6 +74,12 @@ namespace SoundRecorder
 
             // Set the initial button state
             // Disable record button if no recording device is initialized.
+            InitializeIconFont();
+
+            recordButton.Font = this._iconFont;
+            pauseButton.Font = this._iconFont;
+            stopButton.Font = this._iconFont;
+
             if (SelectedDevice == null)
             {
                 recordButton.Enabled = false;
@@ -141,6 +156,47 @@ namespace SoundRecorder
             SaveSettings();
         }
 
+        public void InitializeIconFont()
+        {
+            // FROM: http://stackoverflow.com/questions/1297264/using-custom-fonts-on-a-label-on-winforms
+            //Create your private font collection object.
+            PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+
+            //Select your font from the resources.
+            //My font here is "fontawesome.ttf"
+            int fontLength = Properties.Resources.fontawesome.Length;
+
+            // create a buffer to read in to
+            byte[] fontdata = Properties.Resources.fontawesome;
+
+            // create an unsafe memory block for the font data
+            IntPtr data = Marshal.AllocCoTaskMem(fontLength);
+
+            // copy the bytes to the unsafe memory block
+            Marshal.Copy(fontdata, 0, data, fontLength);
+
+            // pass the font to the font collection
+            privateFontCollection.AddMemoryFont(data, fontLength);
+
+            // free up the unsafe memory
+            Marshal.FreeCoTaskMem(data);
+
+            this._iconFont = new Font(privateFontCollection.Families[0], 14);
+        }
+
+        private void InitializeVisualization()
+        {
+            var screens = Screen.AllScreens;
+            var maxWidth = 600; // Default in case no screen is plugged in.
+
+            foreach (var screen in screens)
+            {
+                maxWidth = screen.Bounds.Width;
+            }
+
+            this._visualization = new RecordingVisualization(maxWidth);
+        }
+
         public void SetCaptureDevice()
         {
             using (var deviceRenderEnumerator = new MMDeviceEnumerator())
@@ -201,7 +257,7 @@ namespace SoundRecorder
             _finalSource = singleBlockNotificationStream.ToWaveSource();
 
 
-            var bitRate = 192000;
+            var bitRate = Properties.Settings.Default.bitrate;
 
             // MP3 Write
             if (_writeCodec == Codec.MP3)
@@ -267,6 +323,7 @@ namespace SoundRecorder
 
         private void SingleBlockNotificationStreamOnSingleBlockRead(object sender, SingleBlockReadEventArgs e)
         {
+            _visualization.AddSamples(e.Left, e.Right);  // TODO: Should this be spun up in a thread? If so how will the order be maintained?
             _levelsVisualization.AddSamples(e.Left, e.Right);
         }
 
@@ -284,10 +341,13 @@ namespace SoundRecorder
         private void recordButton_Click(object sender, EventArgs e)
         {
             var extension = _writeCodec.ToString().ToLower();
-            var timeStamp = DateTime.Now.ToString("yyyy-MM-d dddd h꞉mm꞉ss tt");
+            var timeStamp = DateTime.Now.ToString("yyyy-MM-dd dddd h꞉mm꞉ss tt");
             var fileName = String.Format("{0}.{1}", timeStamp, extension);
 
             StartCapture(Path.Combine(this._writeDir, fileName));
+
+            // Created fresh here to get the new screen dimensions in case of mulitple monitor setup.
+            InitializeVisualization();
 
             this.recordButton.Enabled = false;
             this.stopButton.Enabled = true;
@@ -333,7 +393,7 @@ namespace SoundRecorder
         {
             this.listPreviousRecordings.Items.Clear();
 
-            var extensions = new List<string> {".mp3", ".wav", ".flac", ".aac", ".ac3", ".wma"};  // The file formats supported by CSCore
+            var extensions = new List<string> {".mp3", ".wav", ".flac", ".aac", ".ac3", ".wma"};  // TODO: Load formats from Codec Enum?
             var files = Directory.GetFiles(_writeDir, "*.*", SearchOption.AllDirectories)
                  .Where(s => extensions.Any(e => s.ToLower().EndsWith(e)));
 
@@ -361,6 +421,7 @@ namespace SoundRecorder
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // TODO: Wait or force close any running threads.
             this.Close();
         }
 
@@ -382,14 +443,15 @@ namespace SoundRecorder
 
         private void visualUpdateTimer_Tick(object sender, EventArgs e)
         {
-            // TODO: how intesive is this?
-            // Get the current image
-            var image = visualizationPictureBox.Image;
-            // Write a new image to the picture box
-            visualizationPictureBox.Image = _levelsVisualization.Draw(visualizationPictureBox.Width, visualizationPictureBox.Height);
-            // If there was an old image dispos of it
-            if (image != null)
-                image.Dispose();
+            if (this._visualization != null)
+            {
+                // Update main visualization
+                // TODO: how intesive is this?
+                var visualizationImage = this.visualizationPictureBox.Image;
+                this.visualizationPictureBox.Image = _visualization.Draw(visualizationPictureBox.Width, visualizationPictureBox.Height);
+
+                visualizationImage?.Dispose();
+            }
         }
 
         private void resetWindowSizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -401,7 +463,27 @@ namespace SoundRecorder
 
         private void listPreviousRecordings_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Process.Start("explorer.exe", Path.Combine(this._writeDir, this.listPreviousRecordings.SelectedItems[0].Text));
+            if (e.Button == MouseButtons.Left)
+            {
+                Process.Start("explorer.exe", Path.Combine(this._writeDir, this.listPreviousRecordings.SelectedItems[0].Text));
+            }
+        }
+
+        private void listPreviousRecordings_MouseDown(object sender, MouseEventArgs e)
+        {
+            var hitInfo = listPreviousRecordings.HitTest(e.Location);
+
+            if (e.Button == MouseButtons.Right)
+            {
+                if (hitInfo.Location == ListViewHitTestLocations.Label)
+                {
+                    previousRecordingsContextMenu.Show(Cursor.Position);
+                }
+                else
+                {
+                    previousRecordingsRefreshMenu.Show(Cursor.Position);
+                }
+            }
         }
 
         private void listPreviousRecordings_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -429,6 +511,102 @@ namespace SoundRecorder
             // object.
             this.listPreviousRecordings.ListViewItemSorter = new ListViewItemComparer(e.Column, this.listPreviousRecordings.Sorting);
 
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Path.Combine(this._writeDir, this.listPreviousRecordings.FocusedItem.Text));
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listPreviousRecordings.FocusedItem.BeginEdit();
+        }
+
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", this._writeDir);
+        }
+
+        private void listPreviousRecordings_beforeLabelEdit(object sender, System.Windows.Forms.LabelEditEventArgs e)
+        {
+            // Using focusedItem to set the string as the e.Label is empty.
+            this._focusedPreviousRecording = this.listPreviousRecordings.FocusedItem.Text;
+        }
+        
+        private void listPreviousRecordings_afterLabelEdit(object sender, System.Windows.Forms.LabelEditEventArgs e)
+        {
+            if (e.Label != null && this._focusedPreviousRecording != e.Label)
+            {
+                // Check to make sure the new filename has an extension
+                var fileExtension = e.Label.Split(new string[] {"."}, StringSplitOptions.RemoveEmptyEntries);
+
+                if (fileExtension.Length < 2)
+                {
+                    MessageBox.Show("File needs to have an extension! e.g. '.mp3'",
+                        "Sound Recorder: Rename Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    e.CancelEdit = true;
+                    return;
+                }
+
+                // Check to make sure the filename has an accepted extension and then try rename the file.
+                if (Enum.IsDefined(typeof(Codec), fileExtension[fileExtension.Length - 1].ToUpper()))
+                {
+                    try
+                    {
+                        System.IO.File.Move(Path.Combine(this._writeDir, this._focusedPreviousRecording),
+                            Path.Combine(this._writeDir, e.Label));
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        MessageBox.Show("Maybe a file with that name already exists?",
+                            "Sound Recorder: Rename Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        e.CancelEdit = true;
+                        return;
+                    }
+                    catch (System.NotSupportedException)
+                    {
+                        MessageBox.Show("Did you use an unsupported character? e.g. ':' ", 
+                            "Sound Recorder: Rename Error", 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Error);
+                        e.CancelEdit = true;
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Extension must be of type: 'mp3', 'wav', 'wma', or 'aac'.", // TODO: List these from the codecs enum.
+                        "Sound Recorder: Rename Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    e.CancelEdit = true;
+                    return;
+                }
+            }
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayRecentFiles();
+        }
+
+        /// <summary>
+        /// Controls how often the levels image is updated.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void levelsUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            // Draw the levels image
+            var levelsImage = this.levelsVisualizationPictureBox.Image;
+            this.levelsVisualizationPictureBox.Image = this._levelsVisualization.Draw(this.levelsVisualizationPictureBox.Width, this.visualizationPictureBox.Height);
+
+            levelsImage?.Dispose();
         }
     }
 }

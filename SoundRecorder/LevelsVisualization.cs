@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using System.Drawing;
+
 
 namespace SoundRecorder
 {
-    class LevelsVisualization
+    internal class LevelsVisualization
     {
-        private readonly List<float> _left = new List<float>();
-        private readonly List<float> _right = new List<float>();
+        private float _left;
+        private float _right;
 
         private readonly object _lockObj = new object();
 
@@ -17,9 +15,17 @@ namespace SoundRecorder
         {
             lock (_lockObj)
             {
-                _left.Add(left);
-                _right.Add(right);
+                if (left > this._left)
+                    this._left = left;
+
+                if (right > this._right)
+                    this._right = right;
             }
+        }
+
+        public void Draw()
+        {
+
         }
 
         public Image Draw(int width, int height)
@@ -29,70 +35,22 @@ namespace SoundRecorder
             {
                 Draw(g, width, height);
             }
+
+            this._left = 0;
+            this._right = 0;
+
             return image;
+            
         }
 
         public void Draw(Graphics graphics, int width, int height)
         {
-            const int pixelsPerSample = 2;
-            var samplesLeft = GetSamplesToDraw(_left, width / pixelsPerSample).ToArray();
-            var samplesRight = GetSamplesToDraw(_right, width / pixelsPerSample).ToArray();
-
             //left channel:
-            graphics.DrawLines(new Pen(Color.DeepSkyBlue, 1), GetPoints(samplesLeft, pixelsPerSample, width, height).ToArray());
+            graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.DarkGray)), 0, 0, width, 21);
+            graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.Red)), 0, 0, this._left * width, 21);
             //right channel:
-            graphics.DrawLines(new Pen(Color.FromArgb(150, Color.Red), 0.5f), GetPoints(samplesRight, pixelsPerSample, width, height).ToArray());
-        }
-
-        private IEnumerable<Point> GetPoints(float[] samples, int pixelsPerSample, int width, int height)
-        {
-            int halfY = height / pixelsPerSample;
-            if (samples.Length >= 2)
-            {
-                for (int i = 0; i < samples.Length; i++)
-                {
-                    Point point = new Point
-                    {
-                        X = i * pixelsPerSample,
-                        Y = halfY + (int)(samples[i] * halfY)
-                    };
-                    yield return point;
-                }
-            }
-            else
-            {
-                yield return new Point(0, halfY);
-                yield return new Point(width, halfY);
-            }
-        }
-
-        private IEnumerable<float> GetSamplesToDraw(List<float> inputSamples, int numberOfSamplesRequested)
-        {
-            float[] samples;
-            lock (_lockObj)
-            {
-                samples = inputSamples.ToArray();
-                inputSamples.Clear();
-            }
-
-            var validLength = samples.Length > 0;  // TODO: Necessary?
-            var resolution = validLength ? (samples.Length / numberOfSamplesRequested) : 0;
-
-            int index = 0;
-            float currentMax = 0;
-
-            for (int i = 0; i < samples.Length; i++)
-            {
-                if (i > index * resolution)
-                {
-                    yield return currentMax;
-                    currentMax = 0;
-                    index++;
-                }
-
-                if (Math.Abs(currentMax) < Math.Abs(samples[i]))
-                    currentMax = samples[i];
-            }
+            graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.DarkGray)), 0, 23, width, 21);
+            graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.ForestGreen)), 0, 23, this._right * width, 21);
         }
     }
 }

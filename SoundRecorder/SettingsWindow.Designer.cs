@@ -245,13 +245,13 @@ namespace SoundRecorder
             // 
             // recordingFormatSettingsButton
             // 
-            this.recordingFormatSettingsButton.Enabled = false;
             this.recordingFormatSettingsButton.Location = new System.Drawing.Point(369, 3);
             this.recordingFormatSettingsButton.Name = "recordingFormatSettingsButton";
             this.recordingFormatSettingsButton.Size = new System.Drawing.Size(74, 23);
             this.recordingFormatSettingsButton.TabIndex = 0;
             this.recordingFormatSettingsButton.Text = "Settings";
             this.recordingFormatSettingsButton.UseVisualStyleBackColor = true;
+            this.recordingFormatSettingsButton.Click += new System.EventHandler(this.recordingFormatSettingsButton_Click);
             // 
             // recordingFormatComboBox
             // 

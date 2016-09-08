@@ -158,5 +158,25 @@ namespace SoundRecorder
         {
             Enum.TryParse<Codec>(this.recordingFormatComboBox.SelectedValue.ToString(), out this._writeCodec);
         }
+
+        private void recordingFormatSettingsButton_Click(object sender, EventArgs e)
+        {
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.MP3.ToString())
+            {
+                Console.Out.WriteLine("MP3!");
+            }
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.AAC.ToString())
+            {
+                Console.Out.WriteLine("AAC!");
+            }
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.WAV.ToString())
+            {
+                MessageBox.Show("There are no settings for WAV recording", "Sound Recorder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.WMA.ToString())
+            {
+                Console.Out.WriteLine("WMA!");
+            }
+        }
     }
 }

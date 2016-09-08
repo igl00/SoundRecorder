@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SoundRecorder
 {
-    class RecordingVisualization
+    internal class RecordingVisualization
     {
+        private int _screenWidth;
         private readonly List<float> _left = new List<float>();
         private readonly List<float> _right = new List<float>();
 
         private readonly object _lockObj = new object();
+
+        /// <summary>
+        /// Initializes a new visualization. 
+        /// Takes the width of the screen it will be displayed on as a parameter. 
+        /// </summary>
+        /// <param name="screenWidth"></param>
+        public RecordingVisualization(int screenWidth)
+        {
+            this._screenWidth = screenWidth;
+        }
 
         public void AddSamples(float left, float right)
         {

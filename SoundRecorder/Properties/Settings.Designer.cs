@@ -118,5 +118,17 @@ namespace SoundRecorder.Properties {
                 this["mainWindow_defaultHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192000")]
+        public int bitrate {
+            get {
+                return ((int)(this["bitrate"]));
+            }
+            set {
+                this["bitrate"] = value;
+            }
+        }
     }
 }
