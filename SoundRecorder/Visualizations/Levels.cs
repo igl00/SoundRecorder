@@ -1,17 +1,18 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
+
+using SoundRecorder.Visualizations;
 
 
 namespace SoundRecorder
 {
-    internal class LevelsVisualization
+    class Levels : Visualization
     {
         private float _left;
         private float _right;
 
         private readonly object _lockObj = new object();
-
-        public void AddSamples(float left, float right)
+        
+        override public void AddSamples(float left, float right)
         {
             lock (_lockObj)
             {
@@ -23,13 +24,9 @@ namespace SoundRecorder
             }
         }
 
-        public void Draw()
+        override public Image Draw(int width, int height)
         {
 
-        }
-
-        public Image Draw(int width, int height)
-        {
             var image = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(image))
             {
@@ -43,7 +40,7 @@ namespace SoundRecorder
             
         }
 
-        public void Draw(Graphics graphics, int width, int height)
+        override public void Draw(Graphics graphics, int width, int height)
         {
             //left channel:
             graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.DarkGray)), 0, 0, width, 21);

@@ -3,28 +3,22 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+using SoundRecorder.Visualizations;
 
+
+/// <summary>
+/// A simple waveform visualization from the CSCore samples library.
+/// </summary>
 namespace SoundRecorder
 {
-    internal class RecordingVisualization
+    internal class SimpleWaveform : Visualization
     {
-        private int _screenWidth;
         private readonly List<float> _left = new List<float>();
         private readonly List<float> _right = new List<float>();
 
         private readonly object _lockObj = new object();
 
-        /// <summary>
-        /// Initializes a new visualization. 
-        /// Takes the width of the screen it will be displayed on as a parameter. 
-        /// </summary>
-        /// <param name="screenWidth"></param>
-        public RecordingVisualization(int screenWidth)
-        {
-            this._screenWidth = screenWidth;
-        }
-
-        public void AddSamples(float left, float right)
+        override public void AddSamples(float left, float right)
         {
             lock (_lockObj)
             {
@@ -33,7 +27,7 @@ namespace SoundRecorder
             }
         }
 
-        public Image Draw(int width, int height)
+        override public Image Draw(int width, int height)
         {
             var image = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(image))
@@ -43,7 +37,7 @@ namespace SoundRecorder
             return image;
         }
 
-        public void Draw(Graphics graphics, int width, int height)
+        override public void Draw(Graphics graphics, int width, int height)
         {
             const int pixelsPerSample = 2;
             var samplesLeft = GetSamplesToDraw(_left, width / pixelsPerSample).ToArray();

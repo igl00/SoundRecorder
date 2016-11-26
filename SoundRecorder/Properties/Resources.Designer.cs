@@ -63,9 +63,9 @@ namespace SoundRecorder.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] fontawesome {
+        internal static byte[] glyphfont_fontawesome {
             get {
-                object obj = ResourceManager.GetObject("fontawesome", resourceCulture);
+                object obj = ResourceManager.GetObject("glyphfont_fontawesome", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -86,6 +86,46 @@ namespace SoundRecorder.Properties {
         internal static System.Drawing.Bitmap icon_256 {
             get {
                 object obj = ResourceManager.GetObject("icon_256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pause_button_24 {
+            get {
+                object obj = ResourceManager.GetObject("pause_button_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pause_button_faded_24 {
+            get {
+                object obj = ResourceManager.GetObject("pause_button_faded_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap record_button_24 {
+            get {
+                object obj = ResourceManager.GetObject("record_button_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_button_24 {
+            get {
+                object obj = ResourceManager.GetObject("stop_button_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

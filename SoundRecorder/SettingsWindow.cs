@@ -9,7 +9,7 @@ namespace SoundRecorder
     public partial class SettingsWindow : Form
     {
         private string _writeDir;
-        private Codec _writeCodec;
+        private AvailableCodecs _writeAvailableCodecs;
         private string _inputDevice;
 
         private MMDeviceCollection _inputRenderDevices;
@@ -24,7 +24,7 @@ namespace SoundRecorder
             RefreshDevices();
 
             // Load the available codecs into the combo box
-            this.recordingFormatComboBox.DataSource = Enum.GetValues(typeof(Codec));
+            this.recordingFormatComboBox.DataSource = Enum.GetValues(typeof(AvailableCodecs));
 
             // Load the saved settings. Stored in C:\Users\<USER>\AppData\Local\<COMPANY NAME>\
             LoadSettings();
@@ -38,13 +38,13 @@ namespace SoundRecorder
             // Fetch the saved settings
             this._writeDir = Properties.Settings.Default.writeDir;
             this._inputDevice = Properties.Settings.Default.inputDevice;
-            this._writeCodec = (Codec) Properties.Settings.Default.writeCodec;
+            this._writeAvailableCodecs = (AvailableCodecs) Properties.Settings.Default.writeCodec;
 
             // Set the write directory to the saved value
             this.saveDirectoryTextBox.Text = this._writeDir;
 
-            //Load the user selected codec in
-            this.recordingFormatComboBox.SelectedItem = this._writeCodec;
+            //Load the user selected availableCodecs in
+            this.recordingFormatComboBox.SelectedItem = this._writeAvailableCodecs;
         }
 
         public void SaveSettings()
@@ -52,7 +52,7 @@ namespace SoundRecorder
             // Save all fields to the settings
             Properties.Settings.Default.writeDir = this._writeDir;
             Properties.Settings.Default.inputDevice = this._inputDevice;
-            Properties.Settings.Default.writeCodec = (int) this._writeCodec; 
+            Properties.Settings.Default.writeCodec = (int) this._writeAvailableCodecs; 
 
             Properties.Settings.Default.Save();
         }
@@ -79,11 +79,7 @@ namespace SoundRecorder
 
             // Load the updated settings into the main window.
             var parentForm = (MainWindow)this.Owner;
-            if (parentForm != null)
-            {
-                parentForm.LoadSettings();
-                parentForm.SetCaptureDevice();
-            }
+            parentForm?.LoadSettings();
 
             this.Close();
         }
@@ -156,24 +152,24 @@ namespace SoundRecorder
 
         private void recordingFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Enum.TryParse<Codec>(this.recordingFormatComboBox.SelectedValue.ToString(), out this._writeCodec);
+            Enum.TryParse<AvailableCodecs>(this.recordingFormatComboBox.SelectedValue.ToString(), out this._writeAvailableCodecs);
         }
 
         private void recordingFormatSettingsButton_Click(object sender, EventArgs e)
         {
-            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.MP3.ToString())
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == AvailableCodecs.MP3.ToString())
             {
                 Console.Out.WriteLine("MP3!");
             }
-            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.AAC.ToString())
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == AvailableCodecs.AAC.ToString())
             {
                 Console.Out.WriteLine("AAC!");
             }
-            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.WAV.ToString())
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == AvailableCodecs.WAV.ToString())
             {
                 MessageBox.Show("There are no settings for WAV recording", "Sound Recorder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            if (this.recordingFormatComboBox.SelectedValue.ToString() == Codec.WMA.ToString())
+            if (this.recordingFormatComboBox.SelectedValue.ToString() == AvailableCodecs.WMA.ToString())
             {
                 Console.Out.WriteLine("WMA!");
             }
