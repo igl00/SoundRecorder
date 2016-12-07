@@ -192,6 +192,11 @@ namespace SoundRecorder
             // Divide the value by 10000 to convert it into a timespan using FromMilliseconds
             return Convert.ToDouble(value.ValueAsObject.ToString()) / 10000;
         }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayRecentFiles();
+        }
     }
 }
 

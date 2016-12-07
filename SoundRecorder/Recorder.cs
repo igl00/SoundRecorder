@@ -9,7 +9,7 @@ using CSCore.Streams;
 
 namespace SoundRecorder
 {
-    class Recorder
+    public class Recorder
     {
         private readonly SoundInSource _soundInSource;
         private readonly IWaveSource _waveStream;
@@ -18,9 +18,14 @@ namespace SoundRecorder
 
         public SingleBlockNotificationStream NotificationStream;
 
-        public Recorder(MMDevice captureDevice, CaptureModeOptions captureMode)
+        /// <summary>
+        /// Initializes a new instance of the recorder class.
+        /// </summary>
+        /// <param name="captureDevice"></param>
+        /// <param name="captureMode"></param>
+        public Recorder(MMDevice captureDevice, DataFlow captureMode)
         {
-            var wasapiCapture = Convert.ToBoolean(captureMode) ? new WasapiLoopbackCapture() : new WasapiCapture();
+            var wasapiCapture = Convert.ToBoolean(captureMode) ? new WasapiCapture() : new WasapiLoopbackCapture();
 
             wasapiCapture.Device = captureDevice;
             wasapiCapture.Initialize();

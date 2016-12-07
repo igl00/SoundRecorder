@@ -330,6 +330,7 @@ namespace SoundRecorder
             // 
             // previousRecordings
             // 
+            this.previousRecordings.AutoSize = true;
             this.previousRecordings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.previousRecordings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previousRecordings.Location = new System.Drawing.Point(3, 249);
@@ -349,7 +350,7 @@ namespace SoundRecorder
             this.Controls.Add(this.menuMain);
             this.Icon = global::SoundRecorder.Properties.Resources.icon;
             this.MainMenuStrip = this.menuMain;
-            this.MinimumSize = new System.Drawing.Size(380, 380);
+            this.MinimumSize = new System.Drawing.Size(380, 400);
             this.Name = "MainWindow";
             this.Text = "Sound Recorder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
@@ -361,6 +362,7 @@ namespace SoundRecorder
             this.buttonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.levelsVisualizationPictureBox)).EndInit();
             this.baseTableLayoutPanel.ResumeLayout(false);
+            this.baseTableLayoutPanel.PerformLayout();
             this.previousRecordingsContextMenu.ResumeLayout(false);
             this.previousRecordingsRefreshMenu.ResumeLayout(false);
             this.ResumeLayout(false);

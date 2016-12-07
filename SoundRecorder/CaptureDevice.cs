@@ -4,9 +4,9 @@ using CSCore.CoreAudioAPI;
 
 namespace SoundRecorder
 {
-    class CaptureDevice
+    public class CaptureDevice
     {
-        public CaptureModeOptions CaptureMode { get; private set; }
+        public DataFlow CaptureMode { get; private set; }
         public MMDevice Device { get; private set; }
 
         public CaptureDevice(string captureDeviceGUID)
@@ -25,25 +25,14 @@ namespace SoundRecorder
         private void SetCaptureDevice(string deviceGUID)
         {
             using (var deviceRenderEnumerator = new MMDeviceEnumerator())
-            using (var inputRenderDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
-            using (var inputCaptureDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
+            using (var Devices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.All, DeviceState.Active))
             {
-                foreach (var device in inputRenderDevices)
+                foreach (var device in Devices)
                 {
                     if (device.DeviceID == deviceGUID)
                     {
                         Device = device;
-                        CaptureMode = CaptureModeOptions.LoopbackCapture;
-                        return;
-                    }
-                }
-
-                foreach (var device in inputCaptureDevices)
-                {
-                    if (device.DeviceID == deviceGUID)
-                    {
-                        Device = device;
-                        CaptureMode = CaptureModeOptions.Capture;
+                        CaptureMode = device.DataFlow;
                         return;
                     }
                 }

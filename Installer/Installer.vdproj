@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Installer"
+"ProjectName" = "8:SoundRecorder.Install"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -15,20 +15,38 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
-        "OwnerKey" = "8:_D8906FC4648656AA2DC2854B89530727"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
+        "MsmKey" = "8:_100A25FF15EDE8EE5CB67410DC59350B"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_837044E5F6B940C74100157C14676AAE"
+        "MsmKey" = "8:_100A25FF15EDE8EE5CB67410DC59350B"
+        "OwnerKey" = "8:_2104B00F4961AD9E62CB34C1929337B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2104B00F4961AD9E62CB34C1929337B8"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6A387343D36B1EED74646E16AB12D956"
+        "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_70A7BCD82D5296B10B6EB9A6BD4B1239"
+        "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_70A7BCD82D5296B10B6EB9A6BD4B1239"
+        "OwnerKey" = "8:_6A387343D36B1EED74646E16AB12D956"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,7 +57,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D8906FC4648656AA2DC2854B89530727"
+        "MsmKey" = "8:_E0A05887D7EED579BF4DA02F4B3A387F"
         "OwnerKey" = "8:_96A8E374F5F74606B3C083FD4264CD70"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,25 +82,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D8906FC4648656AA2DC2854B89530727"
+        "OwnerKey" = "8:_E0A05887D7EED579BF4DA02F4B3A387F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0281C0C8D212BDD587BDD2ED3AE14CA5"
+        "OwnerKey" = "8:_6A387343D36B1EED74646E16AB12D956"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_837044E5F6B940C74100157C14676AAE"
+        "OwnerKey" = "8:_70A7BCD82D5296B10B6EB9A6BD4B1239"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F41F5728B3F39A606735EE3C889544FB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2104B00F4961AD9E62CB34C1929337B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_100A25FF15EDE8EE5CB67410DC59350B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -110,6 +140,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -172,14 +210,137 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0281C0C8D212BDD587BDD2ED3AE14CA5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_100A25FF15EDE8EE5CB67410DC59350B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Awesomium.Core, Version=1.6.6.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_06DF6E1177976B04D0954428C53A5C18"
+                    {
+                    "Name" = "8:icudt42.dll"
+                    "Attributes" = "3:1"
+                    }
+                    "_100A25FF15EDE8EE5CB67410DC59350B"
+                    {
+                    "Name" = "8:Awesomium.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                    "_544F53ED32FC332FDCD552E8DCFCDECA"
+                    {
+                    "Name" = "8:en-US.dll"
+                    "Attributes" = "3:1"
+                    }
+                    "_72B586C5E9D81053E0E8830045FAE343"
+                    {
+                    "Name" = "8:Awesomium.Core.XML"
+                    "Attributes" = "3:1"
+                    }
+                    "_77CC3FCF6994EF8640E039BFAD4A0932"
+                    {
+                    "Name" = "8:AwesomiumProcess"
+                    "Attributes" = "3:1"
+                    }
+                    "_EEFCF14FB7D63985941BA0A588E62F79"
+                    {
+                    "Name" = "8:Awesomium.dll"
+                    "Attributes" = "3:1"
+                    }
+                }
+            "SourcePath" = "8:Awesomium.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2104B00F4961AD9E62CB34C1929337B8"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Awesomium.Windows.Forms, Version=1.6.6.0, Culture=neutral, PublicKeyToken=9bd24830fbe304a0, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_2104B00F4961AD9E62CB34C1929337B8"
+                    {
+                    "Name" = "8:Awesomium.Windows.Forms.dll"
+                    "Attributes" = "3:512"
+                    }
+                    "_598DF399F766C58895CA4C84EE3CBE62"
+                    {
+                    "Name" = "8:Awesomium.Windows.Forms.XML"
+                    "Attributes" = "3:1"
+                    }
+                }
+            "SourcePath" = "8:Awesomium.Windows.Forms.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6A387343D36B1EED74646E16AB12D956"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6A387343D36B1EED74646E16AB12D956"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_70A7BCD82D5296B10B6EB9A6BD4B1239"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_0281C0C8D212BDD587BDD2ED3AE14CA5"
+                    "_70A7BCD82D5296B10B6EB9A6BD4B1239"
                     {
                     "Name" = "8:Microsoft.WindowsAPICodePack.dll"
                     "Attributes" = "3:512"
@@ -203,51 +364,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_837044E5F6B940C74100157C14676AAE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E0A05887D7EED579BF4DA02F4B3A387F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CSCore, Version=1.1.5992.18249, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CSCore, Version=1.1.6036.32699, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_837044E5F6B940C74100157C14676AAE"
+                    "_E0A05887D7EED579BF4DA02F4B3A387F"
                     {
                     "Name" = "8:CSCore.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:CSCore.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D8906FC4648656AA2DC2854B89530727"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_D8906FC4648656AA2DC2854B89530727"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"
@@ -922,7 +1052,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_96A8E374F5F74606B3C083FD4264CD70"
             {
-            "SourcePath" = "8:..\\SoundRecorder\\obj\\Release\\SoundRecorder.exe"
+            "SourcePath" = "8:..\\SoundRecorder\\obj\\Debug\\SoundRecorder.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_314AE955285D4F94B826A86BD6172A83"

@@ -105,24 +105,15 @@ namespace SoundRecorder
             Dictionary<string, string> deviceDictonary = new Dictionary<string, string>();
 
             using (var deviceRenderEnumerator = new MMDeviceEnumerator())
-            using (var inputRenderDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
-            using (var inputCaptureDevices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
+            using (var devices = deviceRenderEnumerator.EnumAudioEndpoints(DataFlow.All, DeviceState.Active))
             {
-
-                foreach (var device in inputRenderDevices)
+                foreach (var device in devices)
                 {
                     deviceDictonary.Add(device.DeviceID, device.FriendlyName);
                 }
-
-                foreach (var device in inputCaptureDevices)
-                {
-                    deviceDictonary.Add(device.DeviceID, device.FriendlyName);
-                }
-
                 this.inputDeviceComboBox.DataSource = new BindingSource(deviceDictonary, null);
                 this.inputDeviceComboBox.DisplayMember = "Value";
                 this.inputDeviceComboBox.ValueMember = "Key";
-
             }
         }
 

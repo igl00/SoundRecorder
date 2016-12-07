@@ -53,7 +53,7 @@
             this.listPreviousRecordings.LabelEdit = true;
             this.listPreviousRecordings.Location = new System.Drawing.Point(0, 0);
             this.listPreviousRecordings.Name = "listPreviousRecordings";
-            this.listPreviousRecordings.Size = new System.Drawing.Size(521, 70);
+            this.listPreviousRecordings.Size = new System.Drawing.Size(0, 50);
             this.listPreviousRecordings.TabIndex = 1;
             this.listPreviousRecordings.UseCompatibleStateImageBehavior = false;
             this.listPreviousRecordings.View = System.Windows.Forms.View.Details;
@@ -113,22 +113,24 @@
             this.previousRecordingsRefreshMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.previousRecordingsRefreshMenu.Name = "previousRecordingsRefreshMenu";
-            this.previousRecordingsRefreshMenu.Size = new System.Drawing.Size(114, 26);
+            this.previousRecordingsRefreshMenu.Size = new System.Drawing.Size(153, 48);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // PreviousRecordings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.listPreviousRecordings);
             this.MinimumSize = new System.Drawing.Size(0, 50);
             this.Name = "PreviousRecordings";
-            this.Size = new System.Drawing.Size(521, 70);
+            this.Size = new System.Drawing.Size(0, 50);
             this.previousRecordingsContextMenu.ResumeLayout(false);
             this.previousRecordingsRefreshMenu.ResumeLayout(false);
             this.ResumeLayout(false);

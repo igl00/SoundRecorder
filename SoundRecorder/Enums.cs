@@ -8,12 +8,6 @@
         WMA,
     }
 
-    public enum CaptureModeOptions
-    {
-        Capture,
-        LoopbackCapture
-    }
-
     public enum RecordingState
     {
         Recording,

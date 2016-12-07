@@ -1,9 +1,6 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using CSCore;
 using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 
@@ -19,7 +16,7 @@ namespace SoundRecorder
         private string _writeDir;
 
         // Visualizations
-        private AudioMeterInformation _audioMeter;
+        private AudioMeter _audioMeter;
         private Visualization _levelsVisualization = new Levels();
         private Visualization _mainVisualization = new SimpleWaveform();
 
@@ -63,16 +60,12 @@ namespace SoundRecorder
             try
             {
                 _captureDevice = new CaptureDevice(inputDeviceGUID);
-                _audioMeter = AudioMeterInformation.FromDevice(_captureDevice.Device);
+                _audioMeter = AudioMeter.FromDevice(_captureDevice.Device);
                 _recorder?.Dispose(); // Get rid of the old recorder.
                 _recorder = new Recorder(_captureDevice.Device, _captureDevice.CaptureMode);
                 _recorder.NotificationStream.SingleBlockRead += UpdateMainVisualization;
             }
-            catch (Exception e)
-            {
-                // TODO: Handle specific cases
-//                throw e;
-            }
+            catch (Exception) {}
         }
 
         private void RestoreWindow()
@@ -294,10 +287,15 @@ namespace SoundRecorder
         {
             // Fetch and add the peak samples
             var samples = this._audioMeter?.GetChannelsPeakValues();
-            if (_audioMeter != null || _audioMeter?.MeteringChannelCount == 2)
+
+            if (_audioMeter != null)  // TODO: Channels!
             {
+                // TODO: Audio meter not working on stereo mix or microphone input.
                 // TODO: Add support for different channel configurations. e.g. mono
                 this._levelsVisualization.AddSamples(samples[0], samples[1]);
+
+                // TODO: Peak scale seems off
+                Console.WriteLine(samples[0]);
             }
 
             // Draw the levels image
