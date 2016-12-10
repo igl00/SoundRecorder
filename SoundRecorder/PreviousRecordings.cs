@@ -54,6 +54,16 @@ namespace SoundRecorder
             }
         }
 
+        public int GetColumnWidth(int columnIndex)
+        {
+            return listPreviousRecordings.Columns[columnIndex].Width;
+        }
+
+        public void SetColumnWidth(int columnIndex, int width)
+        {
+            listPreviousRecordings.Columns[columnIndex].Width = width;
+        }
+
         private void listPreviousRecordings_beforeLabelEdit(object sender, LabelEditEventArgs e)
         {
             // Using focusedItem to set the string as the e.Label is empty.
@@ -208,16 +218,19 @@ class ListViewItemComparer : IComparer
 {
     private int col;
     private SortOrder order;
+
     public ListViewItemComparer()
     {
         col = 0;
         order = SortOrder.Ascending;
     }
+
     public ListViewItemComparer(int column, SortOrder order)
     {
         col = column;
         this.order = order;
     }
+
     public int Compare(object x, object y)
     {
         int returnVal;

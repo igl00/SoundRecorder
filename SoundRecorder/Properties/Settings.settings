@@ -29,5 +29,23 @@
     <Setting Name="bitrate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">192000</Value>
     </Setting>
+    <Setting Name="previousRecordings_columnOneWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="previousRecordings_columnTwoWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="previousRecordings_columnThreeWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="previousRecordings_columnOneDefaultWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">259</Value>
+    </Setting>
+    <Setting Name="previousRecordings_columnTwoDefaultWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="previousRecordings_columnThreeDefaultWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">135</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

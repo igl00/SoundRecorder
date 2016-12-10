@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 
 using SoundRecorder.Visualizations;
@@ -17,7 +16,7 @@ namespace SoundRecorder
 
         // Visualizations
         private AudioMeter _audioMeter;
-        private Visualization _levelsVisualization = new Levels();
+        private Visualization _levelsVisualization = new PeakMeterDisplay();
         private Visualization _mainVisualization = new SimpleWaveform();
 
         // Button tracking
@@ -81,6 +80,33 @@ namespace SoundRecorder
             }
 
             this.WindowState = (FormWindowState) Properties.Settings.Default.mainWindow_state;
+
+            // Restore the previous recordings column widths
+            int[] columnWidths = new[]
+            {
+                Properties.Settings.Default.previousRecordings_columnOneWidth,
+                Properties.Settings.Default.previousRecordings_columnTwoWidth,
+                Properties.Settings.Default.previousRecordings_columnThreeWidth
+            };
+
+            int[] defualtColumnWidths = new[]
+            {
+                Properties.Settings.Default.previousRecordings_columnOneDefaultWidth,
+                Properties.Settings.Default.previousRecordings_columnTwoDefaultWidth,
+                Properties.Settings.Default.previousRecordings_columnThreeDefaultWidth
+            };
+
+            for (int i = 0; i < columnWidths.Length; i++)
+            {
+                if (columnWidths[i] == 0)
+                {
+                    previousRecordings.SetColumnWidth(i, defualtColumnWidths[i]);
+                }
+                else
+                {
+                    previousRecordings.SetColumnWidth(i, columnWidths[i]);
+                }
+            }
         }
 
         private void UpdateMainVisualization(object sender, SingleBlockReadEventArgs e)
@@ -118,6 +144,10 @@ namespace SoundRecorder
             Properties.Settings.Default.mainWindow_height = this.Height;
             Properties.Settings.Default.mainWindow_state = (int) this.WindowState;
 
+            Properties.Settings.Default.previousRecordings_columnOneWidth = previousRecordings.GetColumnWidth(0);
+            Properties.Settings.Default.previousRecordings_columnTwoWidth = previousRecordings.GetColumnWidth(1);
+            Properties.Settings.Default.previousRecordings_columnThreeWidth = previousRecordings.GetColumnWidth(2);
+
             Properties.Settings.Default.Save();
         }
 
@@ -126,6 +156,7 @@ namespace SoundRecorder
             // Make sure the capture has stopped when the window is closed
             this._recorder?.StopCapture();
             this._recorder?.Dispose();
+            this._audioMeter?.Dispose();
             SaveSettings();
         }
 
@@ -216,7 +247,7 @@ namespace SoundRecorder
             var fileName = Path.Combine(this._writeDir, DateTime.Now.ToString("yyyy-MM-dd dddd h꞉mm꞉ss tt"));
             var bitrate = Properties.Settings.Default.bitrate;
             var codec = (AvailableCodecs) Properties.Settings.Default.writeCodec;
-            var channels = Channels.Stereo;
+            var channels = Channels.Mono;
 
             // Start recording
             this._recorder.StartCapture(fileName, codec, bitrate, channels);
@@ -266,6 +297,10 @@ namespace SoundRecorder
             this.WindowState = FormWindowState.Normal;
             this.Width = Properties.Settings.Default.mainWindow_defaultWidth;
             this.Height = Properties.Settings.Default.mainWindow_defaultHeight;
+
+            this.previousRecordings.SetColumnWidth(0, Properties.Settings.Default.previousRecordings_columnOneDefaultWidth);
+            this.previousRecordings.SetColumnWidth(1, Properties.Settings.Default.previousRecordings_columnTwoDefaultWidth);
+            this.previousRecordings.SetColumnWidth(2, Properties.Settings.Default.previousRecordings_columnThreeDefaultWidth);
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
@@ -290,12 +325,10 @@ namespace SoundRecorder
 
             if (_audioMeter != null)  // TODO: Channels!
             {
-                // TODO: Audio meter not working on stereo mix or microphone input.
+                // https://www.gearslutz.com/board/mastering-forum/504815-how-convert-percent-fs-dbfs.html
+                // Dividing by 60 instead of 100 as the range we want to map to is -60 to 0
                 // TODO: Add support for different channel configurations. e.g. mono
-                this._levelsVisualization.AddSamples(samples[0], samples[1]);
-
-                // TODO: Peak scale seems off
-                Console.WriteLine(samples[0]);
+                this._levelsVisualization.AddSamples((float) (20 * Math.Log10(samples[0]) / 60 + 1), (float)(20 * Math.Log10(samples[1]) / 60 + 1));
             }
 
             // Draw the levels image

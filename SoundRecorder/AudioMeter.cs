@@ -39,11 +39,7 @@ namespace SoundRecorder.Visualizations
 
         private void EnableCaptureEndpoint()
         {
-            if (_dummyCapture != null)
-            {
-                _dummyCapture.Dispose();
-                _dummyCapture = null;
-            }
+            Dispose();
 
             if (Endpoint != null && Endpoint.DataFlow == DataFlow.Capture)
             {

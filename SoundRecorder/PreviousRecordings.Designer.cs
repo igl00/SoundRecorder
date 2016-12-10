@@ -113,12 +113,12 @@
             this.previousRecordingsRefreshMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.previousRecordingsRefreshMenu.Name = "previousRecordingsRefreshMenu";
-            this.previousRecordingsRefreshMenu.Size = new System.Drawing.Size(153, 48);
+            this.previousRecordingsRefreshMenu.Size = new System.Drawing.Size(114, 26);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 

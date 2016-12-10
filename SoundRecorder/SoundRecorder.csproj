@@ -55,8 +55,6 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.6.6.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214" />
-    <Reference Include="Awesomium.Windows.Forms, Version=1.6.6.0, Culture=neutral, PublicKeyToken=9bd24830fbe304a0, processorArchitecture=x86" />
     <Reference Include="CSCore, Version=1.1.6179.30193, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Reference\cscore-master\CSCore\bin\Release\CSCore.dll</HintPath>
@@ -96,8 +94,8 @@
     <Compile Include="PreviousRecordings.Designer.cs">
       <DependentUpon>PreviousRecordings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Visualizations\AudioMeter.cs" />
-    <Compile Include="Visualizations\Levels.cs" />
+    <Compile Include="AudioMeter.cs" />
+    <Compile Include="Visualizations\PeakMeterDisplay.cs" />
     <Compile Include="Recorder.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>

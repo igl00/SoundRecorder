@@ -52,6 +52,7 @@ namespace SoundRecorder
             this.recordButton = new System.Windows.Forms.Button();
             this.levelsVisualizationPictureBox = new System.Windows.Forms.PictureBox();
             this.baseTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.previousRecordings = new SoundRecorder.PreviousRecordings();
             this.previousRecordingsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,6 @@ namespace SoundRecorder
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelsUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.buttonAnimationTimer = new System.Windows.Forms.Timer(this.components);
-            this.previousRecordings = new SoundRecorder.PreviousRecordings();
             this.menuMain.SuspendLayout();
             this.recordingTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualizationPictureBox)).BeginInit();
@@ -276,6 +276,18 @@ namespace SoundRecorder
             this.baseTableLayoutPanel.Size = new System.Drawing.Size(527, 501);
             this.baseTableLayoutPanel.TabIndex = 1;
             // 
+            // previousRecordings
+            // 
+            this.previousRecordings.AutoSize = true;
+            this.previousRecordings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.previousRecordings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previousRecordings.Location = new System.Drawing.Point(3, 249);
+            this.previousRecordings.MinimumSize = new System.Drawing.Size(0, 50);
+            this.previousRecordings.Name = "previousRecordings";
+            this.previousRecordings.Size = new System.Drawing.Size(521, 249);
+            this.previousRecordings.TabIndex = 2;
+            this.previousRecordings.writeDir = null;
+            // 
             // previousRecordingsContextMenu
             // 
             this.previousRecordingsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -327,18 +339,6 @@ namespace SoundRecorder
             // 
             this.buttonAnimationTimer.Interval = 600;
             this.buttonAnimationTimer.Tick += new System.EventHandler(this.buttonAnimationTimer_Tick);
-            // 
-            // previousRecordings
-            // 
-            this.previousRecordings.AutoSize = true;
-            this.previousRecordings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.previousRecordings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.previousRecordings.Location = new System.Drawing.Point(3, 249);
-            this.previousRecordings.MinimumSize = new System.Drawing.Size(0, 50);
-            this.previousRecordings.Name = "previousRecordings";
-            this.previousRecordings.Size = new System.Drawing.Size(521, 249);
-            this.previousRecordings.TabIndex = 2;
-            this.previousRecordings.writeDir = null;
             // 
             // MainWindow
             // 

@@ -130,5 +130,77 @@ namespace SoundRecorder.Properties {
                 this["bitrate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int previousRecordings_columnOneWidth {
+            get {
+                return ((int)(this["previousRecordings_columnOneWidth"]));
+            }
+            set {
+                this["previousRecordings_columnOneWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int previousRecordings_columnTwoWidth {
+            get {
+                return ((int)(this["previousRecordings_columnTwoWidth"]));
+            }
+            set {
+                this["previousRecordings_columnTwoWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int previousRecordings_columnThreeWidth {
+            get {
+                return ((int)(this["previousRecordings_columnThreeWidth"]));
+            }
+            set {
+                this["previousRecordings_columnThreeWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("259")]
+        public int previousRecordings_columnOneDefaultWidth {
+            get {
+                return ((int)(this["previousRecordings_columnOneDefaultWidth"]));
+            }
+            set {
+                this["previousRecordings_columnOneDefaultWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int previousRecordings_columnTwoDefaultWidth {
+            get {
+                return ((int)(this["previousRecordings_columnTwoDefaultWidth"]));
+            }
+            set {
+                this["previousRecordings_columnTwoDefaultWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("135")]
+        public int previousRecordings_columnThreeDefaultWidth {
+            get {
+                return ((int)(this["previousRecordings_columnThreeDefaultWidth"]));
+            }
+            set {
+                this["previousRecordings_columnThreeDefaultWidth"] = value;
+            }
+        }
     }
 }

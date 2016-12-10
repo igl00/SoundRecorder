@@ -9,7 +9,7 @@ using CSCore.Streams;
 
 namespace SoundRecorder
 {
-    public class Recorder
+    public class Recorder : IDisposable
     {
         private readonly SoundInSource _soundInSource;
         private readonly IWaveSource _waveStream;
@@ -83,18 +83,7 @@ namespace SoundRecorder
                     throw new ArgumentException("The specified codec was not found.");
             }
 
-//            byte[] buffer = new byte[_waveStream.WaveFormat.BytesPerSecond / 2]; // TODO: Take into account the channels
-//
-//            _soundInSource.DataAvailable += (s, e) =>
-//            {
-//                int read;
-//                while ((read = _waveStream.Read(buffer, 0, buffer.Length)) > 0)
-//                {
-//                    _writer.Write(buffer, 0, read);
-//                }
-//            };
-
-            byte[] buffer = new byte[_waveStream.WaveFormat.BytesPerSecond];
+            byte[] buffer = new byte[waveSource.BytesPerSecond];
 
             _soundInSource.DataAvailable += (s, e) =>
             {
@@ -117,6 +106,7 @@ namespace SoundRecorder
                 _soundInSource.SoundIn.Stop();
                 // Clean up the file writer
                 ((IDisposable)_writer)?.Dispose();
+                _writer = null;
                 _state = RecordingState.Stopped;
             }
         }
@@ -171,7 +161,7 @@ namespace SoundRecorder
         /// </summary>
         public void Dispose()
         {
-            _soundInSource.SoundIn.Dispose();
+            _soundInSource?.SoundIn?.Dispose();
         }
     }
 }
