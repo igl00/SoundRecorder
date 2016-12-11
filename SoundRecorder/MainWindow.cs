@@ -16,7 +16,7 @@ namespace SoundRecorder
 
         // Visualizations
         private AudioMeter _audioMeter;
-        private Visualization _levelsVisualization = new PeakMeterDisplay();
+        private PeakMeterDisplay _levelsVisualization = new PeakMeterDisplay();
         private Visualization _mainVisualization = new SimpleWaveform();
 
         // Button tracking
